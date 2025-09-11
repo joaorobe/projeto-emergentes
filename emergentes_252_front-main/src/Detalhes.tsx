@@ -1,41 +1,47 @@
+// src/Detalhes.tsx
 
-import type { SapatoType } from "./utils/SapatoType"
-import type { EstoqueType } from "./utils/EstoqueType"
-import { useParams, Link } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { useClienteStore } from "./context/ClienteContext"
-import { useForm } from "react-hook-form"
-import { toast } from 'sonner'
+import type { SapatoType } from "./utils/SapatoType";
+import type { EstoqueType } from "./utils/EstoqueType";
+import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useClienteStore } from "./context/ClienteContext";
+import { useForm } from "react-hook-form";
+import { toast } from 'sonner';
 
-const apiUrl = import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_API_URL;
 
 type Inputs = {
-  descricao: string
-}
+  descricao: string;
+};
 
 export default function Detalhes() {
-  const params = useParams()
-  const [sapato, setSapato] = useState<SapatoType | null>(null)
-  const [estoqueSelecionado, setEstoqueSelecionado] = useState<EstoqueType | null>(null)
-  const { cliente } = useClienteStore()
-  const { register, handleSubmit, reset } = useForm<Inputs>()
+  const params = useParams();
+  const [sapato, setSapato] = useState<SapatoType | null>(null);
+  const [estoqueSelecionado, setEstoqueSelecionado] = useState<EstoqueType | null>(null);
+  const { cliente } = useClienteStore();
+  const { register, handleSubmit, reset } = useForm<Inputs>();
 
   useEffect(() => {
     async function buscaDados() {
-      const response = await fetch(`${apiUrl}/sapatos/${params.sapatoId}`)
-      const dados = await response.json()
-      setSapato(dados)
+      const response = await fetch(`${apiUrl}/sapatos/${params.sapatoId}`);
+      const dados = await response.json();
+      setSapato(dados);
       if (dados?.estoques && dados.estoques.length > 0) {
         setEstoqueSelecionado(dados.estoques[0]);
       }
     }
-    buscaDados()
-  }, [params.sapatoId])
+    buscaDados();
+  }, [params.sapatoId]);
 
   async function enviaProposta(data: Inputs) {
     if (!estoqueSelecionado) {
-      toast.error("Por favor, selecione um tamanho antes de enviar a proposta.")
-      return
+      toast.error("Por favor, selecione um tamanho antes de enviar a proposta.");
+      return;
+    }
+
+    if (!cliente) {
+      toast.error("Você precisa estar logado para enviar uma proposta.");
+      return;
     }
 
     const response = await fetch(`${apiUrl}/propostas`, {
@@ -46,25 +52,25 @@ export default function Detalhes() {
         sapatoId: Number(params.sapatoId),
         descricao: `Tamanho: ${estoqueSelecionado.tamanho.split('_')[1]}. Proposta: ${data.descricao}`
       })
-    })
+    });
 
     if (response.status === 201) {
-      toast.success("Obrigado. Sua proposta foi enviada. Aguarde retorno")
-      reset()
+      toast.success("Obrigado. Sua proposta foi enviada. Aguarde retorno");
+      reset();
     } else {
-      toast.error("Erro... Não foi possível enviar sua proposta")
+      toast.error("Erro... Não foi possível enviar sua proposta");
     }
   }
 
   if (!sapato) {
-    return <p className="text-center mt-10 text-xl">Carregando detalhes do produto...</p>
+    return <p className="text-center mt-10 text-xl">Carregando detalhes do produto...</p>;
   }
 
   return (
     <section className="flex mt-6 mx-auto flex-col items-center bg-white md:flex-row md:max-w-5xl">
       <img className="object-cover w-full md:w-1/2"
         src={sapato.foto} alt="Foto do Sapato" />
-      
+
       <div className="flex flex-col justify-between p-8 leading-normal md:w-1/2">
         <h5 className="mb-2 text-3xl font-bold tracking-tight text-gray-900">
           {sapato.marca.nome} {sapato.modelo} {sapato.cor}
@@ -107,8 +113,8 @@ export default function Detalhes() {
                 required
                 {...register("descricao")}
               />
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="w-full bg-black text-white border border-black hover:bg-white hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200">
                 Enviar Proposta
               </button>
@@ -121,5 +127,5 @@ export default function Detalhes() {
         )}
       </div>
     </section>
-  )
+  );
 }

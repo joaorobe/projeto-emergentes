@@ -1,57 +1,58 @@
+// src/components/CardSapato.tsx
 
-import { Link } from "react-router-dom"
-import type { SapatoType } from "../utils/SapatoType"
-import { useState } from "react"
+import { Link } from "react-router-dom";
+import type { SapatoType } from "../utils/SapatoType";
 
-export function CardSapato({data}: {data: SapatoType}) {
-    const [tamanhoSelecionado, setTamanhoSelecionado] = useState<string | null>(null);
+export function CardSapato({ data }: { data: SapatoType }) {
 
-    const semEstoque = !data.estoques || data.estoques.length === 0;
-    const precoInicial = semEstoque ? 0 : data.estoques[0].preco;
+  const semEstoque = !data.estoques || data.estoques.length === 0;
+  const precoInicial = semEstoque ? 0 : data.estoques[0].preco;
 
-    return (
-        <Link to={`/detalhes/${data.id}`} className="">
-        <div className="group relative overflow-hidden bg-white text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
-     
-            <img className="mx-auto h-80" src={data.foto} alt="Foto do Sapato" />
-            
-            <div className="p-4">
-                <h5 className="mb-1 text-lg font-bold tracking-tight text-gray-900">
-                    {data.marca.nome} {data.modelo} {data.cor}
-                </h5>
+  return (
+    // O div principal não é mais um Link. A classe 'group' controla o hover.
+    <div className="group relative overflow-hidden bg-white text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
+      <Link to={`/detalhes/${data.id}`}>
+        <img
+          className="mx-auto h-80 w-full object-cover"
+          src={data.foto}
+          alt={`Foto do ${data.modelo}`}
+        />
+      </Link>
+      
+      <div className="p-4">
+        <h5 className="mb-1 text-lg font-bold tracking-tight text-gray-900 truncate">
+          {data.marca.nome} {data.modelo}
+        </h5>
 
-                {semEstoque ? (
-                    <p className="mb-3 font-bold text-red-600">
-                        Produto Indisponível
-                    </p>
-                ) : (
-                    <>
-                        <p className="mb-3 font-semibold text-gray-700">
-                            R$ {Number(precoInicial).toLocaleString("pt-br", {
-                                minimumFractionDigits: 2
-                            })}
-                        </p>
-
-                        <div className="mb-3 flex justify-center items-center gap-2">
-                            {data.estoques.map(estoque => (
-                                <button
-                                    key={estoque.id}
-                                    onClick={() => setTamanhoSelecionado(estoque.tamanho)}
-                                    disabled={estoque.quantidade === 0}
-                                    className={`
-                                        border-2 rounded-md w-10 h-10 font-bold
-                                        ${tamanhoSelecionado === estoque.tamanho ? 'border-black' : 'border-gray-300'}
-                                        ${estoque.quantidade === 0 ? 'bg-gray-200 text-gray-400 line-through cursor-not-allowed' : 'hover:border-black'}
-                                    `}
-                                >
-                                    {estoque.tamanho.split('_')[1]}
-                                </button>
-                            ))}
-                        </div>
-                    </>
-                )}
-            </div>
+        {/* Container com altura fixa para manter o layout consistente */}
+        <div className="h-14 flex items-center justify-center">
+          {semEstoque ? (
+            <p className="font-bold text-red-600">
+              Produto Indisponível
+            </p>
+          ) : (
+            <p className="font-semibold text-gray-700">
+              R$ {Number(precoInicial).toLocaleString("pt-br", {
+                minimumFractionDigits: 2,
+              })}
+            </p>
+          )}
         </div>
-        </Link>
-    )
+      </div>
+
+      {/* ================================================================== */}
+      {/* BOTÃO QUE APARECE NO HOVER (ESTILO LOUIS VUITTON)                */}
+      {/* ================================================================== */}
+      {!semEstoque && (
+        <div className="absolute bottom-5 left-0 right-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <Link 
+            to={`/detalhes/${data.id}`} 
+            className="inline-block bg-black text-white border border-black hover:bg-white hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 transition-colors duration-200"
+          >
+            Ver Detalhes
+          </Link>
+        </div>
+      )}
+    </div>
+  );
 }

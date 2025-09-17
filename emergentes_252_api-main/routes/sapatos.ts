@@ -19,9 +19,6 @@ const sapatoSchema = z.object({
 router.get("/", async (req, res) => {
   try {
     const sapatos = await prisma.sapato.findMany({
-      where: {
-        destaque: true
-      },
       include: {
         marca: true,
         estoques: true

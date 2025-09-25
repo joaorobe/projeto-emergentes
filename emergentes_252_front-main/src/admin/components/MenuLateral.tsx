@@ -30,7 +30,7 @@ export function MenuLateral() {
             </Link>
           </li>
           <li>
-            <Link to="/admin/carros" className="flex items-center p-2">
+            <Link to="/admin/sapatos" className="flex items-center p-2">
               <span className="h-5 text-gray-600 text-2xl">
                 <FaCarSide />
               </span>

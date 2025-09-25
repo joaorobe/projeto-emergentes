@@ -16,12 +16,12 @@ type graficoClienteType = {
 
 type geralDadosType = {
   clientes: number
-  carros: number
+  sapatos: number
   propostas: number
 }
 
 export default function AdminDashboard() {
-  const [carrosMarca, setCarrosMarca] = useState<graficoMarcaType[]>([])
+  const [sapatosMarca, setsapatosMarca] = useState<graficoMarcaType[]>([])
   const [clientesCidade, setClientesCidade] = useState<graficoClienteType[]>([])
   const [dados, setDados] = useState<geralDadosType>({} as geralDadosType)
 
@@ -34,9 +34,9 @@ export default function AdminDashboard() {
     getDadosGerais()
 
     async function getDadosGraficoMarca() {
-      const response = await fetch(`${apiUrl}/dashboard/carrosMarca`)
+      const response = await fetch(`${apiUrl}/dashboard/sapatosMarca`)
       const dados = await response.json()
-      setCarrosMarca(dados)
+      setsapatosMarca(dados)
     }
     getDadosGraficoMarca()
 
@@ -49,7 +49,7 @@ export default function AdminDashboard() {
 
   }, [])
 
-  const listaCarrosMarca = carrosMarca.map(item => (
+  const listasapatosMarca = sapatosMarca.map(item => (
     { x: item.marca, y: item.num }
   ))
 
@@ -69,8 +69,8 @@ export default function AdminDashboard() {
         </div>
         <div className="border-red-600 border rounded p-6 w-1/3 me-3">
           <span className="bg-red-100 text-red-800 text-xl text-center font-bold mx-auto block px-2.5 py-5 rounded dark:bg-red-900 dark:text-red-300">
-            {dados.carros}</span>
-          <p className="font-bold mt-2 text-center">Nº Carros</p>
+            {dados.sapatos}</span>
+          <p className="font-bold mt-2 text-center">Nº sapatos</p>
         </div>
         <div className="border-green-600 border rounded p-6 w-1/3">
           <span className="bg-green-100 text-green-800 text-xl text-center font-bold mx-auto block px-2.5 py-5 rounded dark:bg-green-900 dark:text-green-300">
@@ -85,7 +85,7 @@ export default function AdminDashboard() {
             standalone={false}
             width={400}
             height={400}
-            data={listaCarrosMarca}
+            data={listasapatosMarca}
             innerRadius={50}
             labelRadius={80}
             theme={VictoryTheme.clean}

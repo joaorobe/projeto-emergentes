@@ -103,7 +103,7 @@ export default function Detalhes() {
         {cliente ? (
           <>
             <h3 className="text-lg font-bold tracking-tight text-gray-900 mb-2">
-              Faça sua proposta:
+              Faça sua Reserva:
             </h3>
             <form onSubmit={handleSubmit(enviaProposta)}>
               <textarea

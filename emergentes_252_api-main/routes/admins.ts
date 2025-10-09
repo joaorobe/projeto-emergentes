@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import { Router } from "express"
 import bcrypt from 'bcrypt'
 import { z } from 'zod'
+import { verificaToken } from "../middewares/verificaToken"
 
 const prisma = new PrismaClient()
 const router = Router()
@@ -78,7 +79,7 @@ function validaSenha(senha: string) {
   return mensa
 }
 
-router.post("/", async (req, res) => {
+router.post("/", verificaToken, async (req, res) => {
 
   const valida = adminSchema.safeParse(req.body)
   if (!valida.success) {

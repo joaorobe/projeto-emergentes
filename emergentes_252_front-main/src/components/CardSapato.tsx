@@ -40,9 +40,6 @@ export function CardSapato({ data }: { data: SapatoType }) {
         </div>
       </div>
 
-      {/* ================================================================== */}
-      {/* BOTÃO QUE APARECE NO HOVER (ESTILO LOUIS VUITTON)                */}
-      {/* ================================================================== */}
       {!semEstoque && (
         <div className="absolute bottom-5 left-0 right-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <Link 

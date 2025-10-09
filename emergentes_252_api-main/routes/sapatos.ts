@@ -2,6 +2,8 @@ import { Cores, Tamanhos, PrismaClient } from '@prisma/client'
 import { Router } from 'express'
 import { z } from 'zod'
 
+import { verificaToken } from '../middewares/verificaToken'
+
 const prisma = new PrismaClient()
 
 const router = Router()
@@ -19,9 +21,15 @@ const sapatoSchema = z.object({
 router.get("/", async (req, res) => {
   try {
     const sapatos = await prisma.sapato.findMany({
+      where: {
+        ativo: true,
+      },
       include: {
         marca: true,
         estoques: true
+      },
+      orderBy: {
+        id: 'desc'
       }
     })
     res.status(200).json(sapatos)
@@ -36,9 +44,9 @@ router.get("/:id", async (req, res) => {
   try {
     const sapato = await prisma.sapato.findFirst({
       where: { id: Number(id)},
-      include: {
+      include: { // Only if 'ativo' is a valid relation
         marca: true,
-        estoques: true
+        estoques: true,
       }
     })
     res.status(200).json(sapato)
@@ -68,13 +76,30 @@ router.post("/", async (req, res) => {
   }
 })
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificaToken, async (req, res) => {
   const { id } = req.params
 
   try {
-    const sapato = await prisma.sapato.delete({
-      where: { id: Number(id) }
+    // const sapato = await prisma.sapato.delete({
+    //   where: { id: Number(id) }
+    // })
+    const sapato = await prisma.sapato.update({
+      where: { id: Number(id) },
+      data: { ativo: false }
     })
+
+    // adminId vem do verificaToken (que acrescenta quando o usuário faz login)
+    const adminId = req.userLogadoId as string
+    const adminNome = req.userLogadoNome as string
+
+    const descricao = `Exclusão de: ${sapato.modelo}`
+    const complemento = `Admin: ${adminNome}`
+
+    // registra um log de exclusão de sapato
+    const log = await prisma.log.create({
+      data: { descricao, complemento, adminId }
+    })    
+
     res.status(200).json(sapato)
   } catch (error) {
     res.status(400).json({ erro: error })

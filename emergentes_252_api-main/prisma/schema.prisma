@@ -32,6 +32,7 @@ model Sapato {
   destaque       Boolean      @default(true)
   marca          Marca        @relation(fields: [marcaId], references: [id])
   marcaId        Int
+  ativo          Boolean      @default(true)
   propostas      Proposta[]
   estoques       Estoque[]
   admin          Admin?       @relation(fields: [adminId], references: [id])
@@ -59,7 +60,6 @@ model Estoque {
   cor         Cores
   preco       Decimal  @db.Decimal(10, 2)
   quantidade  Int      @default(0)
-
   @@map("estoques")
 }
 
@@ -73,6 +73,7 @@ model Admin {
   updatedAt     DateTime @updatedAt  
   sapatos       Sapato[]
   propostas     Proposta[]
+  logs          Log[]
   @@map("admins")
 }
 
@@ -89,6 +90,17 @@ model Proposta {
   admin       Admin?    @relation(fields: [adminId], references: [id])
   adminId     String?    @db.VarChar(36)  
   @@map("propostas")
+}
+
+model Log {
+  id            Int         @id @default(autoincrement())
+  admin         Admin       @relation(fields: [adminId], references: [id])
+  adminId       String      @db.VarChar(36)
+  descricao     String      @db.VarChar(60)
+  complemento   String      @db.VarChar(200)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  @@map("logs")
 }
 
 enum Tamanhos {

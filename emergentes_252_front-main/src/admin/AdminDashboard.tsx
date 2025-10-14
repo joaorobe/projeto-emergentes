@@ -108,7 +108,7 @@ export default function AdminDashboard() {
             }}
             x={200}
             y={200}
-            text={["Veículos", "por Marca"]}
+            text={["Sapatos", "por Marca"]}
           />
         </svg>
 

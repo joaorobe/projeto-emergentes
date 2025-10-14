@@ -37,7 +37,7 @@ export default function Titulo() {
                   <div className="flex items-center space-x-4">
                     <span className="text-black">Olá, {cliente.nome}</span>
                     <Link to="/minhasPropostas" className="text-white font-bold bg-black hover:bg-gray-700 px-3 py-2 rounded-lg text-sm">
-                      Minhas Propostas
+                      Minhas Reservas
                     </Link>
                     <span className="cursor-pointer font-bold text-black" onClick={clienteSair}>
                       Sair
@@ -45,7 +45,7 @@ export default function Titulo() {
                   </div>
                 ) : (
                   <Link to="/login" className="text-gray-900 hover:text-blue-700 font-semibold text-2xl">
-                    Login 👤
+                  Login 👤
                   </Link>
                 )}
               </li>

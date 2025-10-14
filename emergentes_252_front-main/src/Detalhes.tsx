@@ -35,12 +35,12 @@ export default function Detalhes() {
 
   async function enviaProposta(data: Inputs) {
     if (!estoqueSelecionado) {
-      toast.error("Por favor, selecione um tamanho antes de enviar a proposta.");
+      toast.error("Por favor, selecione um tamanho antes de fazer uma reserva.");
       return;
     }
 
     if (!cliente) {
-      toast.error("Você precisa estar logado para enviar uma proposta.");
+      toast.error("Você precisa estar logado para fazer uma reserva.");
       return;
     }
 
@@ -50,15 +50,15 @@ export default function Detalhes() {
       body: JSON.stringify({
         clienteId: cliente.id,
         sapatoId: Number(params.sapatoId),
-        descricao: `Tamanho: ${estoqueSelecionado.tamanho.split('_')[1]}. Proposta: ${data.descricao}`
+        descricao: `Tamanho: ${estoqueSelecionado.tamanho.split('_')[1]}. Reserva: ${data.descricao}`
       })
     });
 
     if (response.status === 201) {
-      toast.success("Obrigado. Sua proposta foi enviada. Aguarde retorno");
+      toast.success("Obrigado. Sua reserva foi registrada. Aguarde retorno");
       reset();
     } else {
-      toast.error("Erro... Não foi possível enviar sua proposta");
+      toast.error("Erro... Não foi possível concluir sua reserva.");
     }
   }
 

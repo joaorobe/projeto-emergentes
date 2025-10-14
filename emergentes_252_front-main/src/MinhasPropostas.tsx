@@ -61,11 +61,11 @@ export default function Propostas() {
     return (
         <section className="max-w-7xl mx-auto">
             <h1 className="mb-6 mt-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-black">
-                Listagem de <span className="">Minhas Propostas</span></h1>
+                Listagem de <span className="">Minhas Reservas</span></h1>
 
             {propostas.length == 0 ?
                 <h2 className="mb-4 mt-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">
-                   &nbsp;&nbsp; Ah... Você ainda não fez propostas para os nossos sapatos.
+                   &nbsp;&nbsp; Ah... Você ainda não fez Reserva para os nossos sapatos.
                 </h2>
                 :
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -78,7 +78,7 @@ export default function Propostas() {
                                 Foto
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Proposta
+                                Reserva
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Resposta

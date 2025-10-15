@@ -14,6 +14,7 @@ type Inputs = {
   preco: number
   foto: string
   quantidade: number
+  estoque: number
   adminId: string  
 }
 
@@ -51,7 +52,8 @@ export default function AdminNovoSapato() {
       tamanho: data.tamanho,
       foto: data.foto,
       preco: Number(data.preco),
-      quantidade: data.quantidade,
+      quantidade: Number(data.quantidade),
+      estoque: Number(data.estoque),
       adminId: admin.id
     }
 

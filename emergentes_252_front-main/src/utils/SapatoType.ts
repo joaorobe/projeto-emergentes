@@ -9,6 +9,7 @@ export type SapatoType = {
     foto: string
     tamanho: string
     cor: string
+    quantidade_total: number
     createdAt: Date
     updatedAt: Date
     marcaId: number

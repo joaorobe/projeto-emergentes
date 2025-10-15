@@ -53,6 +53,10 @@ export default function AdminSapatos() {
               <th scope="col" className="px-6 py-3">
                 Preço R$
               </th>
+              {/* Nova coluna para a quantidade em estoque */}
+              <th scope="col" className="px-6 py-3">
+                Qtd. em Estoque
+              </th>
               <th scope="col" className="px-6 py-3">
                 Ações
               </th>

@@ -83,6 +83,14 @@ export default function ItemSapato({ Sapato, Sapatos, setSapatos }: listaSapatoP
       <td className={`px-6 py-4 ${Sapato.destaque ? "font-extrabold" : ""}`}>
         {Number(Sapato.preco).toLocaleString("pt-br", { minimumFractionDigits: 2 })}
       </td>
+      
+      {/* ======================================================= */}
+      {/* LINHA ATUALIZADA PARA MOSTRAR O ESTOQUE TOTAL           */}
+      {/* ======================================================= */}
+      <td className={`px-6 py-4 font-bold ${Sapato.destaque ? "font-extrabold" : ""}`}>
+        {Sapato.quantidade_total}
+      </td>
+      
       <td className="px-6 py-4">
         <TiDeleteOutline className="text-3xl text-red-600 inline-block cursor-pointer" title="Excluir"
           onClick={excluirSapato} />&nbsp;

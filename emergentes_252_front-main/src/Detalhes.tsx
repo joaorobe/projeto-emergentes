@@ -97,7 +97,7 @@ export default function Detalhes() {
                 </button>
               ))
             ) : (
-              <p className="text-sm text-gray-500">Nenhuma opção de tamanho cadastrada.</p>
+              <p className="text-sm text-gray-500">Nenhuma opção de tamanho disponível.</p>
             )}
           </div>
         </div>

@@ -1,4 +1,4 @@
-// AdminSapatos.tsx
+
 
 import { useEffect, useState } from "react";
 import ItemSapato from './components/ItemSapato';
@@ -6,12 +6,11 @@ import { Link } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-// TIPO CORRIGIDO: Agora a marca tem 'id' e 'nome', correspondendo aos dados da API
 export type SapatoAdminType = {
   id: number;
   modelo: string;
   marca: { 
-    id: number; // <-- CORREÇÃO AQUI
+    id: number;
     nome: string; 
   };
   preco: number;

@@ -1,4 +1,3 @@
-// src/pages/admin/AdminEstoqueGeral.tsx
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -7,7 +6,6 @@ import { toast } from 'sonner';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-// Tipo para os dados que virão da nossa nova API (estoque + sapato + marca)
 type EstoqueDetalhado = {
   id: number;
   tamanho: string;

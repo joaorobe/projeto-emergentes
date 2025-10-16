@@ -1,11 +1,9 @@
-// src/pages/admin/components/ItemSapato.tsx
 
 import { TiDeleteOutline } from "react-icons/ti";
 import { FaRegStar } from "react-icons/fa";
-// CORREÇÃO 1: Usando 'import type' para importar apenas a definição do tipo.
 import type { SapatoAdminType } from "../AdminSapatos";
-import { useAdminStore } from "../../context/AdminContext"; // Ajuste o caminho se necessário
-import { Link } from 'react-router-dom'; // Certifique-se de que o Link está importado
+import { useAdminStore } from "../../context/AdminContext"; 
+import { Link } from 'react-router-dom';
 import { FaBoxes } from 'react-icons/fa';
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -17,9 +15,8 @@ interface ItemSapatoProps {
 }
 
 export default function ItemSapato({ sapato, sapatos, setSapatos }: ItemSapatoProps) {
-  const { admin } = useAdminStore(); // Para pegar o token de autenticação
+  const { admin } = useAdminStore();
 
-  // CORREÇÃO 2: Implementação completa da função, utilizando as variáveis.
   async function excluirSapato() {
     if (!admin) {
       alert("Erro de autenticação.");
@@ -36,7 +33,6 @@ export default function ItemSapato({ sapato, sapatos, setSapatos }: ItemSapatoPr
         });
 
         if (response.ok) {
-          // Remove o sapato da lista no estado local para atualizar a UI
           const novosSapatos = sapatos.filter(s => s.id !== sapato.id);
           setSapatos(novosSapatos);
           alert("Sapato excluído com sucesso!");
@@ -50,9 +46,7 @@ export default function ItemSapato({ sapato, sapatos, setSapatos }: ItemSapatoPr
     }
   }
   
-  // CORREÇÃO 3: Lógica para a função de destaque (exemplo)
   async function alterarDestaque() {
-    // Você precisará ter um endpoint para isso no backend, por exemplo: PATCH /sapatos/destacar/:id
     console.log("Funcionalidade de destacar ainda não implementada.");
   }
 

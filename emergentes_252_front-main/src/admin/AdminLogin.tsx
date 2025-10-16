@@ -28,7 +28,6 @@ export default function AdminLogin() {
       body: JSON.stringify({ email: data.email, senha: data.senha })
     })
 
-    // console.log(response)
     if (response.status == 200) {
       const admin = await response.json()
       logaAdmin(admin)

@@ -37,8 +37,6 @@ export default function CadCliente() {
         console.log(response)
         if (response.status == 201) {
             toast.success("Ok! Cadastro realizado com sucesso...")
-            // carrega a página principal, após login do cliente
-            // navigate("/login")
         } else {
             toast.error("Erro... Não foi possível realizar o cadastro")
         }

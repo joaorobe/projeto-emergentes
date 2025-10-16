@@ -1,12 +1,9 @@
-// src/components/InputPesquisa.tsx
 
 import { useState, useEffect } from "react";
 import type { SapatoType } from "../utils/SapatoType";
 import { toast } from "sonner";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-
-// Props atualizados para controlar o App.tsx
 type InputPesquisaProps = {
     setResultados: React.Dispatch<React.SetStateAction<SapatoType[]>>;
     setEstaPesquisando: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,14 +15,12 @@ export function InputPesquisa({ setResultados, setEstaPesquisando }: InputPesqui
     useEffect(() => {
         const debounceTimer = setTimeout(() => {
             if (termo === '') {
-                // Se o campo está vazio, desativa o modo pesquisa e limpa os resultados
                 setEstaPesquisando(false);
                 setResultados([]);
                 return;
             }
             
             if (termo.length >= 2) {
-                // Ativa o modo pesquisa e busca os dados
                 setEstaPesquisando(true);
                 fetch(`${apiUrl}/sapatos/pesquisa/${termo}`)
                     .then(res => res.json())

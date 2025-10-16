@@ -1,10 +1,9 @@
-// src/pages/admin/AdminClientes.tsx
 
 import { useEffect, useState } from 'react';
 import { useAdminStore } from "./context/AdminContext"
 import { toast } from 'sonner';
-import { Link } from 'react-router-dom'; // Importe o Link
-import { FaTrash, FaListAlt } from 'react-icons/fa'; // Ícones para as ações
+import { Link } from 'react-router-dom';
+import { FaTrash, FaListAlt } from 'react-icons/fa';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -25,7 +24,6 @@ export default function AdminClientes() {
   const { admin } = useAdminStore();
 
   async function fetchClientes() {
-    // ... (a função de busca continua a mesma)
     if (!admin?.token) {
       toast.error("Autenticação necessária.");
       setLoading(false); return;
@@ -50,7 +48,6 @@ export default function AdminClientes() {
     fetchClientes();
   }, [admin]);
   
-  // NOVA FUNÇÃO: Para excluir um cliente
   async function handleExcluir(clienteId: string, nomeCliente: string) {
     if (!admin?.token) return;
     if (confirm(`Deseja realmente excluir o cliente "${nomeCliente}"? Todas as suas reservas também serão removidas.`)) {
@@ -62,7 +59,6 @@ export default function AdminClientes() {
 
         if (response.ok) {
           toast.success("Cliente excluído com sucesso!");
-          // Remove o cliente da lista local para atualizar a UI sem recarregar a página
           setClientes(clientes.filter(c => c.id !== clienteId));
         } else {
           const erro = await response.json();
@@ -88,7 +84,7 @@ export default function AdminClientes() {
               <th scope="col" className="px-6 py-3">Nome do Cliente</th>
               <th scope="col" className="px-6 py-3">Email</th>
               <th scope="col" className="px-6 py-3">Nº de Reservas</th>
-              <th scope="col" className="px-6 py-3 text-center">Ações</th> {/* Centralizado */}
+              <th scope="col" className="px-6 py-3 text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -97,7 +93,6 @@ export default function AdminClientes() {
                 <td className="px-6 py-4 font-medium text-gray-900">{cliente.nome}</td>
                 <td className="px-6 py-4">{cliente.email}</td>
                 <td className="px-6 py-4 text-center font-bold">{cliente._count.propostas}</td>
-                {/* CÉLULA DE AÇÕES ATUALIZADA */}
                 <td className="px-6 py-4">
                   <div className="flex items-center justify-center space-x-4">
                     <Link to={`/admin/clientes/reservas/${cliente.id}`} title="Ver Reservas" className="text-blue-600 hover:text-blue-800">

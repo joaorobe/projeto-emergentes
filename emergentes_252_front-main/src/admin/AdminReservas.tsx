@@ -1,4 +1,3 @@
-// src/pages/admin/AdminReservas.tsx
 
 import { useEffect, useState } from 'react';
 import { useAdminStore } from "./context/AdminContext"
@@ -32,15 +31,11 @@ export default function AdminReservas() {
         headers: { 'Authorization': `Bearer ${admin.token}` }
       });
       const dados = await response.json();
-
-      // 👇👇 MELHORIA AQUI 👇👇
-      // Verificamos se a resposta da API é realmente um array antes de usá-la.
       if (Array.isArray(dados)) {
         setPropostas(dados);
       } else {
-        // Se não for um array (pode ser um objeto de erro), não quebramos a aplicação.
         toast.error(dados.erro || "Falha ao carregar os dados das reservas.");
-        setPropostas([]); // Garantimos que o estado seja sempre um array.
+        setPropostas([]);
       }
     } catch (error) {
       toast.error("Erro de conexão ao buscar reservas.");
@@ -84,7 +79,6 @@ export default function AdminReservas() {
       <h1 className="text-3xl font-bold mb-6">Controle de Reservas e Propostas</h1>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500">
-          {/* ... (o thead da sua tabela continua igual) ... */}
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3">Cliente</th>

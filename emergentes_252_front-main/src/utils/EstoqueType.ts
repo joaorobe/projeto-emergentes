@@ -1,4 +1,4 @@
-// src/utils/EstoqueType.ts (Crie este novo arquivo)
+
 export type EstoqueType = {
   id: number;
   tamanho: string;

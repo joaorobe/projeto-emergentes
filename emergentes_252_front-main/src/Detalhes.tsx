@@ -1,4 +1,3 @@
-// src/Detalhes.tsx
 
 import type { SapatoType } from "./utils/SapatoType";
 import type { EstoqueType } from "./utils/EstoqueType";
@@ -40,7 +39,6 @@ export default function Detalhes() {
         return;
     }
     
-    // Adapta a descrição se um tamanho específico foi selecionado ou não
     const descricaoReserva = estoqueSelecionado 
       ? `Tamanho: ${estoqueSelecionado.tamanho.split('_')[1]}. Reserva: ${data.descricao}`
       : `Reserva para o modelo (sem tamanho definido): ${data.descricao}`;
@@ -82,7 +80,6 @@ export default function Detalhes() {
           {sapato.marca.nome} {sapato.modelo} {sapato.cor}
         </h5>
         <h5 className="mb-4 text-2xl font-semibold tracking-tight text-gray-800">
-          {/* Mostra o preço do item selecionado, ou o preço base do sapato se não houver estoque */}
           R$ {Number(estoqueSelecionado?.preco || sapato.preco).toLocaleString("pt-br", { minimumFractionDigits: 2 })}
         </h5>
         <div className="mb-6">
@@ -104,13 +101,9 @@ export default function Detalhes() {
             )}
           </div>
         </div>
-        
-        {/* --- LÓGICA DE COMPRA/RESERVA CORRIGIDA --- */}
         <div className="mt-4">
           {cliente ? (
-            // Se o cliente está logado
             estoqueSelecionado && estoqueSelecionado.quantidade > 0 ? (
-              // E o produto selecionado TEM estoque
               <button
                 onClick={handleComprar}
                 className="w-full bg-black text-white border border-black hover:bg-white hover:text-black font-bold rounded-lg text-sm px-5 py-3 text-center transition-colors duration-200"
@@ -118,7 +111,6 @@ export default function Detalhes() {
                 COMPRAR AGORA
               </button>
             ) : (
-              // Se NÃO TEM estoque (seja por quantidade zero ou por não haver opções)
               <>
                 <h3 className="text-lg font-bold tracking-tight text-gray-900 mb-2">
                   {temOpcoesDeEstoque ? "Tamanho indisponível. Faça sua reserva:" : "Produto esgotado. Avise-me quando chegar:"}
@@ -140,7 +132,6 @@ export default function Detalhes() {
               </>
             )
           ) : (
-            // Se o cliente NÃO está logado
             <h2 className="text-xl tracking-tight text-center p-4 bg-gray-100 rounded-lg">
               😎 Gostou? <Link to="/login" className="font-bold underline">Faça login</Link> para comprar ou reservar!
             </h2>

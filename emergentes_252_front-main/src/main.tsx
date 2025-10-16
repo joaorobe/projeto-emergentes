@@ -28,21 +28,21 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const rotas = createBrowserRouter([
   {
     path: "/admin/login",
-    element: <AdminLogin />,   // rota do form de login sem o Layout da Área Administrativa
+    element: <AdminLogin />,  
   },
   {
     path: "/admin",
-    element: <AdminLayout />,  // layout principal do admin com menus e outlet
+    element: <AdminLayout />,
     children: [
-      { index: true, element: <AdminDashboard /> },          // rota /admin
-      { path: "sapatos", element: <AdminSapatos /> },          // rota /admin/sapatos
-      { path: "sapatos/novo", element: <AdminNovoSapato /> },  // ...
+      { index: true, element: <AdminDashboard /> }, 
+      { path: "sapatos", element: <AdminSapatos /> },         
+      { path: "sapatos/novo", element: <AdminNovoSapato /> }, 
       { path: "propostas", element: <AdminPropostas /> },
       { path: "estoques", element: <AdminEstoqueGeral />},
       { path: "sapatos/estoque/:sapatoId", element: <AdminEstoque />},
       { path: "reservas", element: <AdminReservas /> },
       { path: "clientes", element: <AdminClientes /> },
-      { path: "clientes/reservas/:clienteId", element: <AdminClienteReservas /> }, // ...
+      { path: "clientes/reservas/:clienteId", element: <AdminClienteReservas /> },
     ],
   },
   {

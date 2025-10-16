@@ -1,4 +1,3 @@
-// src/pages/admin/AdminClienteReservas.tsx
 
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
@@ -35,12 +34,9 @@ export default function AdminClienteReservas() {
       
       setLoading(true);
       try {
-        // Busca os dados do cliente para exibir o nome
         const clienteResponse = await fetch(`${apiUrl}/clientes/${clienteId}`);
         const clienteData = await clienteResponse.json();
         setCliente(clienteData);
-
-        // Busca as propostas desse cliente
         const propostasResponse = await fetch(`${apiUrl}/propostas/${clienteId}`);
         const propostasData = await propostasResponse.json();
         setPropostas(propostasData);

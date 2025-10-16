@@ -8,7 +8,6 @@ import { toast } from 'sonner';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-// Tipos para o formulário de novo estoque
 type FormInputs = Omit<EstoqueType, 'id'>;
 
 export default function AdminEstoque() {
@@ -18,12 +17,9 @@ export default function AdminEstoque() {
   const { register, handleSubmit, reset } = useForm<FormInputs>();
 
   async function fetchDados() {
-    // Busca os detalhes do sapato para mostrar o nome
     const sapatoResponse = await fetch(`${apiUrl}/sapatos/${sapatoId}`);
     const sapatoDados = await sapatoResponse.json();
     setSapato(sapatoDados);
-    
-    // Busca a lista de estoques para este sapato
     const estoqueResponse = await fetch(`${apiUrl}/estoques/${sapatoId}`);
     const estoqueDados = await estoqueResponse.json();
     setEstoques(estoqueDados);
@@ -47,8 +43,8 @@ export default function AdminEstoque() {
     
     if (response.ok) {
       toast.success("Item de estoque adicionado com sucesso!");
-      reset(); // Limpa o formulário
-      fetchDados(); // Atualiza a lista
+      reset();
+      fetchDados();
     } else {
       toast.error("Erro ao adicionar item de estoque.");
     }
@@ -59,12 +55,9 @@ export default function AdminEstoque() {
       <h1 className="text-3xl font-bold mb-4">
         Controle de Estoque: <span className="text-blue-600">{sapato?.modelo || 'Carregando...'}</span>
       </h1>
-
-      {/* Formulário de Adição */}
       <div className="p-6 mb-8 bg-white rounded-lg shadow-md border">
         <h2 className="text-xl font-semibold mb-4">Adicionar Novo Item ao Estoque</h2>
         <form onSubmit={handleSubmit(adicionaEstoque)} className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          {/* O Zod no backend espera Enums, então os valores devem corresponder */}
           <input type="text" placeholder="Tamanho (ex: T_40)" {...register("tamanho")} className="input-estilo" required />
           <input type="text" placeholder="Cor (ex: BRANCO)" {...register("cor")} className="input-estilo" required />
           <input type="number" step="0.01" placeholder="Preço" {...register("preco")} className="input-estilo" required />
@@ -73,7 +66,6 @@ export default function AdminEstoque() {
         </form>
       </div>
 
-      {/* Tabela de Estoques */}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">

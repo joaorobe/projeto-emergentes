@@ -1,4 +1,3 @@
-// src/components/CardSapato.tsx
 
 import type { SapatoType } from "../utils/SapatoType";
 import { Link } from "react-router-dom";
@@ -8,7 +7,6 @@ interface CardSapatoProps {
 }
 
 export function CardSapato({ data }: CardSapatoProps) {
-  // Voltamos a usar o preço principal do sapato, que é simples
   const precoFormatado = `R$ ${Number(data.preco).toLocaleString("pt-br", { minimumFractionDigits: 2 })}`;
 
   return (

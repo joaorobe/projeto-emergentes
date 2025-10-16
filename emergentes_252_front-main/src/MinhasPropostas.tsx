@@ -1,4 +1,3 @@
-// src/MinhasPropostas.tsx
 
 import './MinhasPropostas.css'
 import { useEffect, useState } from "react";
@@ -13,17 +12,15 @@ export default function Propostas() {
 
     useEffect(() => {
         async function buscaDados() {
-            // Verifica se o cliente está logado antes de buscar dados
             if (!cliente) {
-                return; // Sai da função se não houver cliente logado
+                return;
             }
             const response = await fetch(`${apiUrl}/propostas/${cliente.id}`)
             const dados = await response.json()
             setPropostas(dados)
         }
         buscaDados()
-    }, [cliente]) // Adiciona `cliente` como dependência para que o efeito seja re-executado quando o cliente logar ou deslogar.
-
+    }, [cliente])
     function dataDMA(data: string) {
         const ano = data.substring(0, 4)
         const mes = data.substring(5, 7)

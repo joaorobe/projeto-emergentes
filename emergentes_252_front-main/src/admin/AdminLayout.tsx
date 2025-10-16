@@ -10,8 +10,6 @@ import { MenuLateral } from './components/MenuLateral.tsx'
 
 export default function AdminLayout() {
   const { admin } = useAdminStore()
-
-//  console.log(admin)
   const navigate = useNavigate()
 
   useEffect(() => {

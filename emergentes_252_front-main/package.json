@@ -4,10 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "npx ts-node-dev --respawn index.ts",
+    "vercel-build": "npx prisma migrate deploy",
+    "preview": "prisma generate"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",

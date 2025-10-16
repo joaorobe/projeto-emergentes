@@ -9,6 +9,7 @@ import routesPropostas from './routes/propostas'
 import routesDashboard from './routes/dashboard'
 import routesAdminLogin from './routes/adminLogin'
 import routesAdmins from './routes/admins'
+import routesEstoques from './routes/estoques'
 
 const app = express()
 const port = 3000
@@ -24,6 +25,7 @@ app.use("/propostas", routesPropostas)
 app.use("/dashboard", routesDashboard)
 app.use("/admins/login", routesAdminLogin)
 app.use("/admins", routesAdmins)
+app.use("/estoques", routesEstoques)
 
 app.get('/', (req, res) => {
   res.send('API: Revenda de Sapatos')

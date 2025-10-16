@@ -39,7 +39,7 @@ export function MenuLateral() {
             </Link>
           </li>
           <li>
-          <Link to="/admin/clientes" className="flex items-center p-2 bg-black text-white hover:bg-white hover:text-black focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-lg text-sm text-center transition-colors duration-5">
+          <Link to="/admin/estoques" className="flex items-center p-2 bg-black text-white hover:bg-white hover:text-black focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-lg text-sm text-center transition-colors duration-5">
               <span className="h-5 text-2xl">
               <IoIosArchive />
               </span>
@@ -55,7 +55,7 @@ export function MenuLateral() {
             </Link>
           </li>
           <li>
-          <Link to="/admin/propostas" className="flex items-center p-2 cursor-pointer bg-black text-white hover:bg-white hover:text-black focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-lg text-sm text-center transition-colors duration-5">
+          <Link to="/admin/reservas" className="flex items-center p-2 cursor-pointer bg-black text-white hover:bg-white hover:text-black focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-lg text-sm text-center transition-colors duration-5">
               <span className="h-5 text-2xl">
                 <BsCashCoin />
               </span>

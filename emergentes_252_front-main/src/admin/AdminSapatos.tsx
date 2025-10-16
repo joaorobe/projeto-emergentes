@@ -1,65 +1,68 @@
-import { useEffect, useState } from "react"
+// AdminSapatos.tsx
 
-import ItemSapato from './components/ItemSapato'
-import type { SapatoType } from "../utils/SapatoType"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+import ItemSapato from './components/ItemSapato';
+import { Link } from "react-router-dom";
 
-const apiUrl = import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_API_URL;
+
+// TIPO CORRIGIDO: Agora a marca tem 'id' e 'nome', correspondendo aos dados da API
+export type SapatoAdminType = {
+  id: number;
+  modelo: string;
+  marca: { 
+    id: number; // <-- CORREÇÃO AQUI
+    nome: string; 
+  };
+  preco: number;
+  foto: string;
+  destaque: boolean;
+  quantidade_total: number;
+}
 
 export default function AdminSapatos() {
-  const [Sapatos, setSapatos] = useState<SapatoType[]>([])
+  const [sapatos, setSapatos] = useState<SapatoAdminType[]>([]);
 
   useEffect(() => {
     async function getSapatos() {
-      const response = await fetch(`${apiUrl}/Sapatos`)
-      const dados = await response.json()
-      setSapatos(dados)
+      const response = await fetch(`${apiUrl}/Sapatos/admin/lista`);
+      const dados = await response.json();
+      setSapatos(dados);
     }
-    getSapatos()
-  }, [])
+    getSapatos();
+  }, []);
 
-  const listaSapatos = Sapatos.map(Sapato => (
-    <ItemSapato key={Sapato.id} Sapato={Sapato} Sapatos={Sapatos} setSapatos={setSapatos} />
-  ))
+  const listaSapatos = sapatos.map(sapato => (
+    <ItemSapato 
+      key={sapato.id} 
+      sapato={sapato} 
+      sapatos={sapatos} 
+      setSapatos={setSapatos} 
+    />
+  ));
 
   return (
     <div className='m-4 mt-24'>
-      <div className='flex justify-between'>
-        <h1 className="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
+      <div className='flex justify-between items-center'>
+        <h1 className="mb-4 text-2xl font-bold">
           Cadastro de Sapatos
         </h1>
-        <Link to="/admin/Sapatos/novo" 
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-md px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        <Link to="/admin/sapatos/novo" 
+          className="text-white bg-blue-700 hover:bg-blue-800 font-bold rounded-lg text-md px-5 py-2.5 h-fit">
           Novo Sapato
         </Link>
       </div>
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left text-gray-500">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-              <th scope="col" className="px-6 py-3">
-                Foto
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Modelo do Sapato
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Marca
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Ano
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Preço R$
-              </th>
-              {/* Nova coluna para a quantidade em estoque */}
-              <th scope="col" className="px-6 py-3">
-                Qtd. em Estoque
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Ações
-              </th>
+              <th scope="col" className="px-6 py-3">Foto</th>
+              <th scope="col" className="px-6 py-3">Modelo do Sapato</th>
+              <th scope="col" className="px-6 py-3">Marca</th>
+              <th scope="col" className="px-6 py-3">Preço R$</th>
+              <th scope="col" className="px-6 py-3">Qtd. em Estoque</th>
+              <th scope="col" className="px-6 py-3">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -68,5 +71,5 @@ export default function AdminSapatos() {
         </table>
       </div>
     </div>
-  )
+  );
 }

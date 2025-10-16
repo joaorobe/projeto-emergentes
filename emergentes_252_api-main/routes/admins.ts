@@ -29,24 +29,16 @@ router.get("/", async (req, res) => {
 function validaSenha(senha: string) {
 
   const mensa: string[] = []
-
-  // .length: retorna o tamanho da string (da senha)
   if (senha.length < 8) {
     mensa.push("Erro... senha deve possuir, no mínimo, 8 caracteres")
   }
 
-  // contadores
   let pequenas = 0
   let grandes = 0
   let numeros = 0
   let simbolos = 0
 
-  // senha = "abc123"
-  // letra = "a"
-
-  // percorre as letras da variável senha
   for (const letra of senha) {
-    // expressão regular
     if ((/[a-z]/).test(letra)) {
       pequenas++
     }
@@ -93,15 +85,11 @@ router.post("/", verificaToken, async (req, res) => {
     return
   }
 
-  // 12 é o número de voltas (repetições) que o algoritmo faz
-  // para gerar o salt (sal/tempero)
   const salt = bcrypt.genSaltSync(12)
-  // gera o hash da senha acrescida do salt
   const hash = bcrypt.hashSync(valida.data.senha, salt)
 
   const { nome, email, nivel } = valida.data
 
-  // para o campo senha, atribui o hash gerado
   try {
     const admin = await prisma.admin.create({
       data: { nome, email, senha: hash, nivel }

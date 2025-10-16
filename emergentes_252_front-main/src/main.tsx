@@ -15,7 +15,12 @@ import AdminLogin from './admin/AdminLogin.tsx';
 import AdminDashboard from './admin/AdminDashboard.tsx';    
 import AdminSapatos from './admin/AdminSapatos.tsx';          
 import AdminNovoSapato from './admin/AdminNovoSapato.tsx';          
-import AdminPropostas from './admin/AdminPropostas.tsx'; 
+import AdminPropostas from './admin/AdminReservas.tsx';
+import AdminEstoqueGeral from './admin/AdminEstoqueGeral.tsx';
+import AdminEstoque from './admin/AdminEstoque';
+import AdminReservas from './admin/AdminReservas';
+import AdminClientes from './admin/AdminClientes';
+import AdminClienteReservas from './admin/AdminClienteReservas';
 
 import Layout from './Layout.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -32,7 +37,12 @@ const rotas = createBrowserRouter([
       { index: true, element: <AdminDashboard /> },          // rota /admin
       { path: "sapatos", element: <AdminSapatos /> },          // rota /admin/sapatos
       { path: "sapatos/novo", element: <AdminNovoSapato /> },  // ...
-      { path: "propostas", element: <AdminPropostas /> },  // ...
+      { path: "propostas", element: <AdminPropostas /> },
+      { path: "estoques", element: <AdminEstoqueGeral />},
+      { path: "sapatos/estoque/:sapatoId", element: <AdminEstoque />},
+      { path: "reservas", element: <AdminReservas /> },
+      { path: "clientes", element: <AdminClientes /> },
+      { path: "clientes/reservas/:clienteId", element: <AdminClienteReservas /> }, // ...
     ],
   },
   {
@@ -42,6 +52,7 @@ const rotas = createBrowserRouter([
       { index: true, element: <App /> },
       { path: 'login', element: <Login /> },
       { path: 'detalhes/:sapatoId', element: <Detalhes /> },
+      { path: 'sapatos/:sapatoId', element: <Detalhes /> },
       { path: 'minhasPropostas', element: <MinhasPropostas /> },
       { path: 'cadCliente', element: <CadCliente /> },
     ],

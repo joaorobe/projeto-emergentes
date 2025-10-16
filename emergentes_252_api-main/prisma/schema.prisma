@@ -85,6 +85,7 @@ model Proposta {
   sapatoId    Int
   descricao   String    @db.VarChar(255)
   resposta    String?   @db.VarChar(255)
+  status      StatusProposta @default(PENDENTE)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt  
   admin       Admin?    @relation(fields: [adminId], references: [id])
@@ -120,4 +121,10 @@ enum Cores {
   AZUL
   CINZA
   MARROM
+}
+
+enum StatusProposta {
+  PENDENTE
+  NOTIFICADO
+  CONCLUIDA
 }

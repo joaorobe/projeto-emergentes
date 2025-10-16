@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "emergentes_252_api-main/index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "emergentes_252_front-main/package.json",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "rewrites": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/emergentes_252_api-main/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/emergentes_252_front-main/$1"
+    }
+  ]
+}
